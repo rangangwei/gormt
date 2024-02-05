@@ -126,6 +126,7 @@ func (m *_Model) generate() string {
 func (m *_Model) genTableElement(cols []ColumnsInfo) (el []genstruct.GenElement) {
 	_tagGorm := config.GetDBTag()
 	_tagJSON := config.GetURLTag()
+	selfSoftDeleteDefine := config.GetSelfSoftDeleteDefine()
 
 	for _, v := range cols {
 		var tmp genstruct.GenElement
@@ -136,6 +137,10 @@ func (m *_Model) genTableElement(cols []ColumnsInfo) (el []genstruct.GenElement)
 			tmp.SetName(getCamelName(v.Name))
 			tmp.SetNotes(v.Notes)
 			tmp.SetType(getTypeName(v.Type, v.IsNull))
+			if v.Name == selfSoftDeleteDefine.Column {
+				tmp.AddTag(_tagGorm, selfSoftDeleteDefine.GormTag)
+				tmp.SetType(selfSoftDeleteDefine.SelfTypeDefine)
+			}
 			// 是否输出gorm标签
 			if len(_tagGorm) > 0 {
 				// not simple output. 默认只输出gorm主键和字段标签

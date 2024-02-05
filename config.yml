@@ -32,9 +32,13 @@ db_info:
 self_type_define: # 自定义数据类型映射
     datetime: time.Time
     time: time.Time
-    ^(int)[(]\d+[)]: int
+self_soft_delete_define: # 自定义软删除，需要关闭user_gorm_model
+    column: is_del
+    gorm_tag: softDelete:flag,DeletedAtField:deleted_at
+    self_type_define: soft_delete.DeletedAt
+
 out_file_name: "" # 自定义生成文件名
-web_tag_type: 0 # json tag类型 0: 小驼峰 1: 下划线
+web_tag_type: 1 # json tag类型 0: 小驼峰 1: 下划线
 
 # sqlite
 # db_info:
@@ -44,3 +48,4 @@ web_tag_type: 0 # json tag类型 0: 小驼峰 1: 下划线
 #     password : 
 #     database : 
 #     type: 1 # 数据库类型:0:mysql , 1:sqlite , 2:mssql
+

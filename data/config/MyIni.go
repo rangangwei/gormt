@@ -28,12 +28,20 @@ type Config struct {
 	IsNullToSqlNull      bool              `yaml:"is_null_to_sql_null"`
 	TablePrefix          string            `yaml:"table_prefix"` // 表前缀
 	SelfTypeDef          map[string]string `yaml:"self_type_define"`
+	SelfSoftDeletedefine SoftDeleteDefine  `yaml:"self_soft_delete_define"`
 	OutFileName          string            `yaml:"out_file_name"`
 	WebTagType           int               `yaml:"web_tag_type"`              // 默认小驼峰
 	TableNames           string            `yaml:"table_names"`               // 表名（多个表名用","隔开）
 	IsColumnName         bool              `yaml:"is_column_name"`            //是否输出列名
 	IsOutFileByTableName bool              `yaml:"is_out_file_by_table_name"` //是否根据表名生成文件(多个表名生成多个文件)
 	IsOutPage            bool              `yaml:"is_out_page"`               // 是否输出分页支持
+}
+
+// SoftDeleteDefine 自定义软删除
+type SoftDeleteDefine struct {
+	Column         string `yaml:"column"`
+	GormTag        string `yaml:"gorm_tag"`
+	SelfTypeDefine string `yaml:"self_type_define"`
 }
 
 // DBInfo mysql database information. mysql 数据库信息
@@ -175,6 +183,11 @@ func GetURLTag() string {
 	return _map.URLTag
 }
 
+// GetSelfSoftDeleteDefine get SoftDeleteDefine.
+func GetSelfSoftDeleteDefine() SoftDeleteDefine {
+	return _map.SelfSoftDeletedefine
+}
+
 // SetURLTag set url tag.
 func SetURLTag(s string) {
 	_map.URLTag = s
@@ -275,7 +288,7 @@ func GetWebTagType() int {
 	return _map.WebTagType
 }
 
-//GetTableNames get format tableNames by config. 获取格式化后设置的表名
+// GetTableNames get format tableNames by config. 获取格式化后设置的表名
 func GetTableNames() string {
 	var sb strings.Builder
 	if _map.TableNames != "" {
@@ -302,27 +315,27 @@ func GetTableNames() string {
 	return sb.String()
 }
 
-//GetOriginTableNames get origin tableNames. 获取原始的设置的表名
+// GetOriginTableNames get origin tableNames. 获取原始的设置的表名
 func GetOriginTableNames() string {
 	return _map.TableNames
 }
 
-//SetTableNames set tableNames. 设置生成的表名
+// SetTableNames set tableNames. 设置生成的表名
 func SetTableNames(tableNames string) {
 	_map.TableNames = tableNames
 }
 
-//GetIsColumnName get  gen columnName config . 获取生成列名的config
+// GetIsColumnName get  gen columnName config . 获取生成列名的config
 func GetIsColumnName() bool {
 	return _map.IsColumnName
 }
 
-//SetIsColumnName set gen ColumnName config. 设置生成列名的config
+// SetIsColumnName set gen ColumnName config. 设置生成列名的config
 func SetIsColumnName(isColumnName bool) {
 	_map.IsColumnName = isColumnName
 }
 
-//GetIsOutFileByTableName get  gen columnName config . 设置是否根据表名生成文件
+// GetIsOutFileByTableName get  gen columnName config . 设置是否根据表名生成文件
 func GetIsOutFileByTableName() bool {
 	return _map.IsOutFileByTableName
 }

@@ -2,12 +2,13 @@ package cnf
 
 // EImportsHead imports head options. import包含选项
 var EImportsHead = map[string]string{
-	"stirng":         `"string"`,
-	"time.Time":      `"time"`,
-	"gorm.Model":     `"gorm.io/gorm"`,
-	"fmt":            `"fmt"`,
-	"datatypes.JSON": `"gorm.io/datatypes"`,
-	"datatypes.Date": `"gorm.io/datatypes"`,
+	"soft_delete.DeletedAt": `"gorm.io/plugin/soft_delete"`,
+	"stirng":                `"string"`,
+	"time.Time":             `"time"`,
+	"gorm.Model":            `"gorm.io/gorm"`,
+	"fmt":                   `"fmt"`,
+	"datatypes.JSON":        `"gorm.io/datatypes"`,
+	"datatypes.Date":        `"gorm.io/datatypes"`,
 }
 
 // TypeMysqlDicMp Accurate matching type.精确匹配类型
